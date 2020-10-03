@@ -1,1 +1,1 @@
-RestApi wiwh connection to DataBase
+Rest API with connection to DataBase
