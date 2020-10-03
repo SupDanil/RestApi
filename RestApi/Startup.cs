@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestApi.Data;
 
 namespace RestApi
 {
@@ -25,7 +27,14 @@ namespace RestApi
        
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("CommanderConection");
+            services.AddDbContext<CommanderContext>(options =>
+                options.UseSqlServer(connection));
+            services.AddControllersWithViews();
+            //services.AddDbContext<CommanderContext>(opt => opt.UseSqlServer
+            //(Configuration.GetConnectionString("CommanderConection")));
             services.AddControllers();
+            services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
         }
 
        

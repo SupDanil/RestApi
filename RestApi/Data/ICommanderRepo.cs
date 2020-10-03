@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RestApi.Data
 {
-    interface ICommanderRepo
+    public interface ICommanderRepo
     {
-        IEnumerable<Command> GetAppCommand();
+        IEnumerable<Command> GetAllCommand();
         Command GetCommanByID(int id);
     }
 }
