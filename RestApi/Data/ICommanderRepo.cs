@@ -8,7 +8,9 @@ namespace RestApi.Data
 {
     public interface ICommanderRepo
     {
+        bool SaveChanges();
         IEnumerable<Command> GetAllCommand();
-        Command GetCommanByID(int id);
+        Command GetCommanById(int id);
+        void CreateCommand(Command cmd);
     }
 }
