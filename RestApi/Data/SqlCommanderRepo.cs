@@ -38,5 +38,10 @@ namespace RestApi.Data
         {
           return ( _context.SaveChanges() >= 0);
         }
+
+        public void UpdateCommand(Command cmd)
+        {
+           //Ничего не делает
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace RestApi.Data
         IEnumerable<Command> GetAllCommand();
         Command GetCommanById(int id);
         void CreateCommand(Command cmd);
+        void UpdateCommand(Command cmd);
     }
 }

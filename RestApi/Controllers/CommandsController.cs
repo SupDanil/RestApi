@@ -33,7 +33,7 @@ namespace RestApi.Controllers
 
         //GET api/commands/{id}
         [HttpGet("{id}", Name = "GetCommandById")]
-        public ActionResult <CommandReadDto> GetCommandById(int id)
+        public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             var CommandItem = _repository.GetCommanById(id);
             if (CommandItem != null)
@@ -45,7 +45,7 @@ namespace RestApi.Controllers
 
         //POST api/commands
         [HttpPost]
-        public ActionResult <CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
+        public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
         {
             var commandModel = _mapper.Map<Command>(commandCreateDto);
 
@@ -56,6 +56,25 @@ namespace RestApi.Controllers
             var commandReadDto = _mapper.Map<CommandReadDto>(commandModel);
 
             return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDto.Id }, commandReadDto);
+        }
+
+        //PUT api/commands/{id}
+        [HttpPut("{id}")]
+        public ActionResult UpdateCommand(int id,CommandUpdateDto commandUpdateDto)
+        {
+            var commandModelFromRepo = _repository.GetCommanById(id);
+            if (commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(commandUpdateDto, commandModelFromRepo);
+
+            _repository.UpdateCommand(commandModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
+
         }
 
     }
